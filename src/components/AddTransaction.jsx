@@ -1,22 +1,21 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
+import { addTransaction } from "../reducer/actions";
 
 const AddTransaction = () => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
-
-  const {addTransaction}=useContext(GlobalContext)
+  const {dispatch} =useContext(GlobalContext)
 
   const handleSubmit=(e)=>{
 	e.preventDefault();
-
     const newTransaction={
 		id: Date.now(),
 		text,
 		amount
 	}
     
-	addTransaction(newTransaction);
+	addTransaction(newTransaction,dispatch);
 	setAmount("")
 	setText("")
 

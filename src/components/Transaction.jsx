@@ -2,10 +2,11 @@
 
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
+import { deleteTransaction } from "../reducer/actions";
 
 const Transaction = ({ transaction }) => {
   const { id, amount, text } = transaction;
-  const { deleteTransaction } = useContext(GlobalContext);
+  const { dispatch } = useContext(GlobalContext);
 
   const sign = amount < 0 ? "-" : "+";
   return (
@@ -14,7 +15,7 @@ const Transaction = ({ transaction }) => {
       <span>
         {sign} {Math.abs(amount)}
       </span>
-      <button onClick={() => deleteTransaction(id)} className="delete-btn">
+      <button onClick={() => deleteTransaction(id,dispatch)} className="delete-btn">
         x
       </button>
     </li>

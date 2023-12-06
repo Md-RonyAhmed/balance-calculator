@@ -1,37 +1,18 @@
 /* eslint-disable react/prop-types */
 import { createContext, useReducer } from "react";
-import { BalanceReducer } from "../reducer/BalanceReducer";
-
-//initial state
-const initialState = {
-  transactions: [],
-};
+import { reducer } from "../reducer/reducer";
+import { initialState } from "../reducer/initialState";
 
 //create context
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(BalanceReducer, initialState);
-
-  //Actions creator functions
-  function addTransaction(transaction) {
-    dispatch({
-      type: "ADD_TRANSACTION",
-      payload: transaction,
-    });
-  }
-
-  function deleteTransaction(id) {
-    dispatch({
-      type: "DELETE_TRANSACTION",
-      payload: id,
-    });
-  }
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = {
+    dispatch,
     transactions: state.transactions,
-    addTransaction,
-    deleteTransaction,
+    count: state.counter
   };
 
   return (
